@@ -1,0 +1,99 @@
+{
+  "projectName": "AgriChain - Blockchain Supply Chain Transparency Platform",
+  "framework": {
+    "frontend": {
+      "stack": ["React 19", "Vite 7", "React Router DOM 7"],
+      "styling": ["Tailwind CSS 4", "Bootstrap 5", "DaisyUI"],
+      "animation": ["Framer Motion"],
+      "qr": ["qrcode.react", "qr-scanner"],
+      "blockchain": ["MetaMask SDK", "@metamask/detect-provider", "ethers 6"],
+      "icons": ["Bootstrap Icons"],
+      "lottie": ["lottie-react"]
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint ."
+  },
+  "devServer": {
+    "port": 5173,
+    "command": "npm run dev"
+  },
+  "routing": {
+    "public": ["/", "/home", "/login", "/signup", "/unauthorized"],
+    "protected": [
+      "/dashboard",
+      "/qr-generator",
+      "/qr-scanner",
+      "/product-timeline/:productId?",
+      "/profile",
+      "/help"
+    ]
+  },
+  "auth": {
+    "provider": "MetaMask (window.ethereum)",
+    "context": "src/contexts/AuthContext.jsx",
+    "protectedRoute": "src/components/ProtectedRoute.jsx"
+  },
+  "notifications": {
+    "context": "src/contexts/NotificationContext.jsx"
+  },
+  "keyPages": [
+    "src/pages/LandingPage.jsx",
+    "src/pages/HomePage.jsx",
+    "src/pages/auth/LoginPage.jsx",
+    "src/pages/auth/SignUpPage.jsx",
+    "src/pages/Dashboard.jsx",
+    "src/pages/ProductTimeline.jsx",
+    "src/pages/ProfileSettings.jsx",
+    "src/pages/HelpSupport.jsx",
+    "src/pages/NotFound.jsx",
+    "src/pages/Unauthorized.jsx"
+  ],
+  "dashboards": [
+    "src/components/dashboard/FarmerDashboard.jsx",
+    "src/components/dashboard/DistributorDashboard.jsx",
+    "src/components/dashboard/RetailerDashboard.jsx",
+    "src/components/dashboard/ConsumerDashboard.jsx",
+    "src/components/dashboard/AdminDashboard.jsx"
+  ],
+  "components": [
+    "src/components/Navigation.jsx",
+    "src/components/QRCodeGenerator.jsx",
+    "src/components/QRCodeScanner.jsx"
+  ],
+  "entry": {
+    "main": "src/main.jsx",
+    "app": "src/App.jsx",
+    "indexHtml": "index.html"
+  },
+  "dependencies": {
+    "runtime": {
+      "react": "^19.1.1",
+      "react-dom": "^19.1.1",
+      "react-router-dom": "^7.8.2",
+      "tailwindcss": "^4.1.13",
+      "bootstrap": "^5.3.8",
+      "daisyui": "^5.1.7",
+      "framer-motion": "^12.23.12",
+      "lottie-react": "^2.4.1",
+      "qrcode.react": "^4.2.0",
+      "qr-scanner": "^1.4.2",
+      "ethers": "^6.15.0",
+      "@metamask/detect-provider": "^2.0.0",
+      "@metamask/sdk": "^0.33.0"
+    },
+    "dev": {
+      "vite": "^7.1.2",
+      "@vitejs/plugin-react": "^5.0.0",
+      "eslint": "^9.33.0"
+    }
+  },
+  "notes": [
+    "QR code import uses named export: { QRCodeCanvas } from 'qrcode.react'",
+    "QR scanner uses default import from 'qr-scanner'",
+    "MetaMask required in browser for login flow; dev bypass can be added if needed"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "status": "commited",
+  "type": "backend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:5173",
+  "backendAuthType": "public",
+  "executionArgs": {
+    "projectName": "SIH-frontend",
+    "projectPath": "C:\\Users\\ASUS\\Desktop\\SIH frontend\\SIH-frontend",
+    "testIds": [],
+    "additionalInstruction": "Use running dev server at http://localhost:5173. Login page uses MetaMask; allow bypass if wallet missing by navigating directly to /dashboard for smoke checks.",
+    "envs": {
+      "API_KEY": "sk-user-tMOQgwMYoPZ3BDD6IudgUDv_RnXB6oRkPf7sR30zGr06d6lV0VB0DjP5yb3H9LBolTwDNNG_8RsTEJap1uoXPOEG5eFvXuWlq5Ulfr8mTOAvSQcDB_jfR4iVDOJvf-uTjOE"
+    }
+  }
+}
