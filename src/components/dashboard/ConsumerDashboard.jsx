@@ -1,8 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import QrScanner from 'qr-scanner';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const ConsumerDashboard = () => {
+  const { t } = useLanguage();
   const [scannedProducts, setScannedProducts] = useState([
     {
       id: 1,
@@ -65,8 +67,8 @@ const ConsumerDashboard = () => {
   };
 
   const stats = [
-    { label: 'Products Scanned', value: scannedProducts.length, icon: '📱', color: 'text-blue-600' },
-    { label: 'Verified Products', value: scannedProducts.filter(p => p.authenticity === 'Verified').length, icon: '✅', color: 'text-green-600' },
+    { label: t('dashboard.scanned_products'), value: scannedProducts.length, icon: '📱', color: 'text-blue-600' },
+    { label: t('dashboard.verified') + ' Products', value: scannedProducts.filter(p => p.authenticity === 'Verified').length, icon: '✅', color: 'text-green-600' },
     { label: 'This Month', value: scannedProducts.length, icon: '📅', color: 'text-purple-600' },
     { label: 'Trust Score', value: '100%', icon: '🛡️', color: 'text-orange-600' }
   ];
@@ -75,7 +77,7 @@ const ConsumerDashboard = () => {
     <div className="p-6 space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Consumer Dashboard</h1>
+        <h1 className="text-3xl font-bold text-gray-900">{t('dashboard.consumer_dashboard')}</h1>
         <p className="text-gray-600">Scan products to verify authenticity and track their journey</p>
       </div>
 
@@ -102,7 +104,7 @@ const ConsumerDashboard = () => {
 
       {/* QR Scanner */}
       <div className="bg-white rounded-xl shadow-lg p-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">QR Code Scanner</h2>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">{t('dashboard.scan_qr_code')}</h2>
         <div className="text-center">
           {!isScanning ? (
             <div className="space-y-4">

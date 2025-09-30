@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const AdminDashboard = () => {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState('overview');
   const [pendingUsers, setPendingUsers] = useState([
     {
       id: 1,
-      name: 'John Smith',
-      email: 'john@farm.com',
+      name: 'Rahul Modi',
+      email: 'rahul@farm.com',
       organization: 'Green Valley Farm',
       role: 'farmer',
       requestDate: '2024-01-20',
@@ -15,8 +17,8 @@ const AdminDashboard = () => {
     },
     {
       id: 2,
-      name: 'Sarah Johnson',
-      email: 'sarah@distrib.com',
+      name: 'Piyush Rajat',
+      email: 'piyush@distrib.com',
       organization: 'Fresh Distribution Co.',
       role: 'distributor',
       requestDate: '2024-01-21',
@@ -28,7 +30,7 @@ const AdminDashboard = () => {
     {
       id: 1,
       type: 'Product Added',
-      user: 'John Smith',
+      user: 'Rahul Modi',
       product: 'Organic Tomatoes',
       batchId: 'BATCH-001',
       timestamp: '2024-01-25 10:30:00',
@@ -37,7 +39,7 @@ const AdminDashboard = () => {
     {
       id: 2,
       type: 'Product Transferred',
-      user: 'Sarah Johnson',
+      user: 'Piyush Rajat',
       product: 'Fresh Lettuce',
       batchId: 'BATCH-002',
       timestamp: '2024-01-25 11:15:00',
@@ -61,15 +63,15 @@ const AdminDashboard = () => {
   };
 
   const tabs = [
-    { id: 'overview', label: 'Overview', icon: '📊' },
-    { id: 'users', label: 'User Management', icon: '👥' },
-    { id: 'transactions', label: 'Transactions', icon: '🔗' },
-    { id: 'analytics', label: 'Analytics', icon: '📈' }
+    { id: 'overview', label: t('dashboard.overview'), icon: '📊' },
+    { id: 'users', label: t('dashboard.users'), icon: '👥' },
+    { id: 'transactions', label: t('dashboard.transactions'), icon: '🔗' },
+    { id: 'analytics', label: t('dashboard.analytics'), icon: '📈' }
   ];
 
   const stats = [
-    { label: 'Total Products', value: analytics.totalProducts, icon: '📦', color: 'text-blue-600' },
-    { label: 'Active Users', value: analytics.totalUsers, icon: '👥', color: 'text-green-600' },
+    { label: t('dashboard.total_products'), value: analytics.totalProducts, icon: '📦', color: 'text-blue-600' },
+    { label: t('dashboard.total_users'), value: analytics.totalUsers, icon: '👥', color: 'text-green-600' },
     { label: 'Fraud Detected', value: analytics.fraudDetected, icon: '⚠️', color: 'text-red-600' },
     { label: 'Transactions Today', value: analytics.transactionsToday, icon: '🔗', color: 'text-purple-600' }
   ];
@@ -78,7 +80,7 @@ const AdminDashboard = () => {
     <div className="p-6 space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+        <h1 className="text-3xl font-bold text-gray-900">{t('dashboard.admin_dashboard')}</h1>
         <p className="text-gray-600">Manage the blockchain supply chain network</p>
       </div>
 

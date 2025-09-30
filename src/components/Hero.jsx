@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";   // ✅ Keep only this
+import { Trans, useTranslation } from 'react-i18next';
 import Lottie from "lottie-react";
 import animationData from "../assets/farmer-truck.json";
 
 export default function Hero() {
+  const { t } = useTranslation();
   return (
     <section className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-12 bg-gray-50">
       {/* Left Content */}
@@ -13,8 +15,9 @@ export default function Hero() {
           transition={{ duration: 0.6 }}
           className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight"
         >
-          Trusted Farm-to-Table{" "}
-          <span className="text-green-600">Traceability</span>
+          <Trans i18nKey="hero.title">
+            Trusted Farm-to-Table <span className="text-green-600">Traceability</span>
+          </Trans>
         </motion.h1>
 
         <motion.p
@@ -23,8 +26,7 @@ export default function Hero() {
           transition={{ delay: 0.4 }}
           className="mt-4 text-gray-600 text-lg"
         >
-          From farmers to consumers, track every step of your foods journey
-          securely with blockchain.
+          {t('hero.subtitle')}
         </motion.p>
 
         <motion.div
@@ -35,10 +37,10 @@ export default function Hero() {
         >
           <div className="flex flex-row gap-3 justify-center items-center  ml-25">
              <button className="px-6 py-3 bg-green-600 text-white rounded-xl shadow hover:bg-green-700 transition">
-            Login with MetaMask
+            {t('hero.login_metamask')}
           </button>
           <button className="px-6 py-3 bg-white border border-gray-300 rounded-xl shadow hover:bg-gray-100 transition">
-            Learn More
+            {t('hero.learn_more')}
           </button>
 
           </div>

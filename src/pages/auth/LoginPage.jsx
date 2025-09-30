@@ -1,25 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [selectedRole, setSelectedRole] = useState('');
   const [isConnecting, setIsConnecting] = useState(false);
+  const { t } = useTranslation();
+  const { currentLanguage, supportedLanguages, changeLanguage, isLoading } = useLanguage();
+  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowLanguageDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const roles = [
-    { value: 'farmer', label: 'Farmer', icon: '🌾', color: 'text-green-600' },
-    { value: 'distributor', label: 'Distributor', icon: '🚛', color: 'text-blue-600' },
-    { value: 'retailer', label: 'Retailer', icon: '🏪', color: 'text-purple-600' },
-    { value: 'consumer', label: 'Consumer', icon: '🛒', color: 'text-orange-600' },
-    { value: 'admin', label: 'Admin/Government', icon: '🏛️', color: 'text-red-600' }
+    { value: 'farmer', label: t('auth.roles.farmer'), icon: '🌾', color: 'text-green-600' },
+    { value: 'distributor', label: t('auth.roles.distributor'), icon: '🚛', color: 'text-blue-600' },
+    { value: 'retailer', label: t('auth.roles.retailer'), icon: '🏪', color: 'text-purple-600' },
+    { value: 'consumer', label: t('auth.roles.consumer'), icon: '🛒', color: 'text-orange-600' },
+    { value: 'admin', label: t('auth.roles.admin'), icon: '🏛️', color: 'text-red-600' }
   ];
 
   const connectMetamask = async () => {
     if (!selectedRole) {
-      alert('Please select your role first');
+      alert(t('auth.select_role'));
       return;
     }
 
@@ -41,18 +61,77 @@ const LoginPage = () => {
         login(userData, selectedRole, walletAddress);
         navigate('/dashboard');
       } else {
-        alert('MetaMask is not installed. Please install MetaMask to continue.');
+        alert(t('auth.no_metamask'));
       }
     } catch (error) {
       console.error('Error connecting to MetaMask:', error);
-      alert('Failed to connect to MetaMask. Please try again.');
+      alert(t('auth.connect_failed'));
     } finally {
       setIsConnecting(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 flex items-center justify-center p-4 relative">
+      {/* Language Dropdown in Top-Right Corner */}
+      <div className="absolute top-4 right-4 z-10">
+        <div className="relative" ref={dropdownRef}>
+          <button
+            onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
+            disabled={isLoading}
+            className="flex items-center space-x-2 bg-white/90 backdrop-blur-sm border border-gray-200 rounded-xl px-3 py-2 sm:px-4 shadow-lg hover:bg-white transition-all duration-200 disabled:opacity-50"
+          >
+            <span className="text-lg">🌐</span>
+            <span className="text-sm font-medium text-gray-700">
+              {supportedLanguages.find(lang => lang.code === currentLanguage)?.nativeName || 'EN'}
+            </span>
+            <svg 
+              className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${showLanguageDropdown ? 'rotate-180' : ''}`} 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          {/* Language Dropdown Menu */}
+          {showLanguageDropdown && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="absolute top-full right-0 mt-2 w-48 sm:w-56 bg-white border border-gray-200 rounded-xl shadow-xl z-20 max-h-64 overflow-y-auto"
+            >
+              {supportedLanguages.map((language) => (
+                <button
+                  key={language.code}
+                  onClick={() => {
+                    changeLanguage(language.code);
+                    setShowLanguageDropdown(false);
+                  }}
+                  className={`w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors duration-150 first:rounded-t-xl last:rounded-b-xl ${
+                    currentLanguage === language.code ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-700'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="font-medium">{language.nativeName}</div>
+                      <div className="text-xs text-gray-500">{language.name}</div>
+                    </div>
+                    {currentLanguage === language.code && (
+                      <svg className="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    )}
+                  </div>
+                </button>
+              ))}
+            </motion.div>
+          )}
+        </div>
+      </div>
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -63,14 +142,14 @@ const LoginPage = () => {
           <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-2xl text-white">🔗</span>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">AgriChain</h1>
-          <p className="text-gray-600">Blockchain Supply Chain Transparency</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">{t('app.name')}</h1>
+          <p className="text-gray-600">{t('app.tagline')}</p>
         </div>
 
         <div className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-3">
-              Select Your Role
+              {t('auth.select_role')}
             </label>
             <div className="grid grid-cols-1 gap-3">
               {roles.map((role) => (
@@ -100,12 +179,12 @@ const LoginPage = () => {
             {isConnecting ? (
               <>
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                <span>Connecting...</span>
+                <span>{t('auth.connecting')}</span>
               </>
             ) : (
               <>
                 <span>🦊</span>
-                <span>Connect with MetaMask</span>
+                <span>{t('auth.connect_metamask')}</span>
               </>
             )}
           </button>
@@ -119,7 +198,7 @@ const LoginPage = () => {
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:text-blue-700 font-medium"
               >
-                Install here
+                {t('auth.install_here')}
               </a>
             </p>
           </div>

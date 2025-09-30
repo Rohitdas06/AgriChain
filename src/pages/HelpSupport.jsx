@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const HelpSupport = () => {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState('faq');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -106,9 +108,9 @@ const HelpSupport = () => {
   })).filter(category => category.questions.length > 0);
 
   const tabs = [
-    { id: 'faq', label: 'FAQ', icon: '❓' },
-    { id: 'contact', label: 'Contact', icon: '📞' },
-    { id: 'guides', label: 'Guides', icon: '📚' }
+    { id: 'faq', label: t('help.faq'), icon: '❓' },
+    { id: 'contact', label: t('help.contact'), icon: '📞' },
+    { id: 'guides', label: t('help.guides'), icon: '📚' }
   ];
 
   return (
@@ -121,7 +123,7 @@ const HelpSupport = () => {
         >
           {/* Header */}
           <div className="bg-gradient-to-r from-blue-600 to-green-600 px-8 py-6 text-white">
-            <h1 className="text-3xl font-bold">Help & Support</h1>
+            <h1 className="text-3xl font-bold">{t('help.title')}</h1>
             <p className="text-blue-100 mt-2">Find answers to your questions and get help when you need it</p>
           </div>
 

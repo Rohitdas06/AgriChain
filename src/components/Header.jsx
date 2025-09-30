@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
 
 
 export default function Header() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   return (
 
@@ -12,7 +14,7 @@ export default function Header() {
         onClick={() => navigate("/HomePage")}
         className="hover:scale-110 transition-transform duration-100"
       >
-        Home
+        {t('nav.dashboard')}
       </button>
       <div className=" flex flex-row gap-6">
        
@@ -20,7 +22,7 @@ export default function Header() {
         onClick={() => navigate("/AboutPage")}
         className="hover:scale-110 transition-transform duration-100"
       >
-        About
+        {t('nav.about')}
       </button>
 
         <button
@@ -41,7 +43,7 @@ export default function Header() {
         onClick={() => navigate("/Help")}
         className="hover:scale-110 transition-transform duration-100"
       >
-        Help & Support
+        {t('nav.help')}
       </button>
 
     

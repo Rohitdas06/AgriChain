@@ -1,4 +1,5 @@
 import React from 'react';
+import LanguageTestDemo from './LanguageTestDemo';
 
 export default function About() {
   const primary = '#2E8B57';
@@ -227,6 +228,11 @@ export default function About() {
               Learn How It Works
             </button>
           </div>
+        </section>
+
+        {/* Language Test Demo Section */}
+        <section style={{ padding: '4rem 0' }}>
+          <LanguageTestDemo />
         </section>
       </div>
     </div>

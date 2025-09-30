@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const SignUpPage = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -13,10 +15,10 @@ const SignUpPage = () => {
   });
 
   const roles = [
-    { value: 'farmer', label: 'Farmer', icon: '🌾' },
-    { value: 'distributor', label: 'Distributor', icon: '🚛' },
-    { value: 'retailer', label: 'Retailer', icon: '🏪' },
-    { value: 'consumer', label: 'Consumer', icon: '🛒' }
+    { value: 'farmer', label: t('auth.roles.farmer'), icon: '🌾' },
+    { value: 'distributor', label: t('auth.roles.distributor'), icon: '🚛' },
+    { value: 'retailer', label: t('auth.roles.retailer'), icon: '🏪' },
+    { value: 'consumer', label: t('auth.roles.consumer'), icon: '🛒' }
   ];
 
   const handleChange = (e) => {
@@ -29,7 +31,7 @@ const SignUpPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Here you would typically send the data to your backend for admin approval
-    alert('Registration submitted! An admin will review and approve your account.');
+    alert(t('auth.signup.submitted'));
     navigate('/login');
   };
 
@@ -45,14 +47,14 @@ const SignUpPage = () => {
           <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-2xl text-white">📝</span>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Join AgriChain</h1>
-          <p className="text-gray-600">Request access to the supply chain network</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">{t('auth.signup.join')}</h1>
+          <p className="text-gray-600">{t('auth.signup.request_access')}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Full Name
+              {t('auth.signup.full_name')}
             </label>
             <input
               type="text"
@@ -61,13 +63,13 @@ const SignUpPage = () => {
               onChange={handleChange}
               required
               className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Enter your full name"
+              placeholder=""
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Email Address
+              {t('auth.signup.email')}
             </label>
             <input
               type="email"
@@ -76,13 +78,13 @@ const SignUpPage = () => {
               onChange={handleChange}
               required
               className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Enter your email"
+              placeholder=""
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Organization
+              {t('auth.signup.organization')}
             </label>
             <input
               type="text"
@@ -91,13 +93,13 @@ const SignUpPage = () => {
               onChange={handleChange}
               required
               className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Company or farm name"
+              placeholder=""
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Role
+              {t('auth.signup.role')}
             </label>
             <select
               name="role"
@@ -106,7 +108,7 @@ const SignUpPage = () => {
               required
               className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
-              <option value="">Select your role</option>
+              <option value="">{t('auth.signup.role')}</option>
               {roles.map((role) => (
                 <option key={role.value} value={role.value}>
                   {role.icon} {role.label}
@@ -117,7 +119,7 @@ const SignUpPage = () => {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Wallet Address (Optional)
+              {t('auth.signup.wallet')}
             </label>
             <input
               type="text"
@@ -125,7 +127,7 @@ const SignUpPage = () => {
               value={formData.walletAddress}
               onChange={handleChange}
               className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="0x... (if you have a wallet)"
+              placeholder={t('auth.signup.wallet_placeholder')}
             />
           </div>
 
@@ -135,21 +137,19 @@ const SignUpPage = () => {
               onClick={() => navigate('/login')}
               className="flex-1 py-3 px-6 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors"
             >
-              Back to Login
+              {t('auth.signup.back_to_login')}
             </button>
             <button
               type="submit"
               className="flex-1 bg-gradient-to-r from-blue-600 to-green-600 text-white py-3 px-6 rounded-xl hover:from-blue-700 hover:to-green-700 transition-all duration-200"
             >
-              Submit Request
+              {t('auth.signup.submit')}
             </button>
           </div>
         </form>
 
         <div className="mt-6 p-4 bg-blue-50 rounded-xl">
-          <p className="text-sm text-blue-800">
-            <strong>Note:</strong> Your account will need to be approved by an administrator before you can access the platform.
-          </p>
+          <p className="text-sm text-blue-800">{t('auth.signup.note')}</p>
         </div>
       </motion.div>
     </div>

@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 
 export default function WelcomeText() {
+  const { i18n } = useTranslation();
   const texts = [
-    "स्वागत है ",
-    "স্বাগতম ",
-    "வரவேற்பு ",
-    "స్వాగతం ",
-    "स्वागत ",
-    "ಸ್ವಾಗತ ",
-    "സ്വാഗതം ",
-    "સ્વાગત છે ",
-    "ਸਵਾਗਤ ਹੈ ",
-    "خوش آمدید ",
+    "स्वागत है ", // Hindi
+    "স্বাগতম ", // Bengali
+    "स्वागत ",   // Marathi (approx)
+    "స్వాగతం ", // Telugu
+    "வரவேற்பு ", // Tamil
+    "સ્વાગત છે ", // Gujarati
+    "خوش آمدید ", // Urdu
     "Welcome "
   ];
 

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { QRCodeCanvas } from 'qrcode.react';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const FarmerDashboard = () => {
+  const { t } = useLanguage();
   const [products, setProducts] = useState([
     {
       id: 1,
@@ -46,9 +48,9 @@ const FarmerDashboard = () => {
   };
 
   const stats = [
-    { label: 'Total Products', value: products.length, icon: '🌾', color: 'text-green-600' },
-    { label: 'Harvested Today', value: 2, icon: '📅', color: 'text-blue-600' },
-    { label: 'In Transit', value: 1, icon: '🚛', color: 'text-orange-600' },
+    { label: t('dashboard.total_products'), value: products.length, icon: '🌾', color: 'text-green-600' },
+    { label: t('dashboard.harvested_today'), value: 2, icon: '📅', color: 'text-blue-600' },
+    { label: t('dashboard.in_transit'), value: 1, icon: '🚛', color: 'text-orange-600' },
     { label: 'QR Codes Generated', value: products.length, icon: '📱', color: 'text-purple-600' }
   ];
 
@@ -65,7 +67,7 @@ const FarmerDashboard = () => {
           className="bg-gradient-to-r from-green-600 to-blue-600 text-white px-6 py-3 rounded-xl hover:from-green-700 hover:to-blue-700 transition-all duration-200 flex items-center space-x-2"
         >
           <span>➕</span>
-          <span>Add Product</span>
+          <span>{t('dashboard.add_product')}</span>
         </button>
       </div>
 
@@ -98,11 +100,11 @@ const FarmerDashboard = () => {
             animate={{ opacity: 1, scale: 1 }}
             className="bg-white rounded-2xl p-6 w-full max-w-md"
           >
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Add New Product</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('dashboard.add_product')}</h2>
             <form onSubmit={handleAddProduct} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Product Name
+                  {t('dashboard.product_name')}
                 </label>
                 <input
                   type="text"
@@ -115,7 +117,7 @@ const FarmerDashboard = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Batch ID
+                  {t('dashboard.batch_id')}
                 </label>
                 <input
                   type="text"
@@ -128,7 +130,7 @@ const FarmerDashboard = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Harvest Date
+                  {t('dashboard.harvest_date')}
                 </label>
                 <input
                   type="date"
@@ -140,7 +142,7 @@ const FarmerDashboard = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Location
+                  {t('dashboard.location')}
                 </label>
                 <input
                   type="text"
@@ -157,13 +159,13 @@ const FarmerDashboard = () => {
                   onClick={() => setShowAddForm(false)}
                   className="flex-1 py-3 px-6 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors"
                 >
-                  Cancel
+                  {t('dashboard.cancel')}
                 </button>
                 <button
                   type="submit"
                   className="flex-1 bg-gradient-to-r from-green-600 to-blue-600 text-white py-3 px-6 rounded-xl hover:from-green-700 hover:to-blue-700 transition-all duration-200"
                 >
-                  Add Product
+                  {t('dashboard.add_product')}
                 </button>
               </div>
             </form>
@@ -174,7 +176,7 @@ const FarmerDashboard = () => {
       {/* Products List */}
       <div className="bg-white rounded-xl shadow-lg overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900">My Products</h2>
+          <h2 className="text-xl font-semibold text-gray-900">{t('dashboard.recent_products')}</h2>
         </div>
         <div className="divide-y divide-gray-200">
           {products.map((product, index) => (
@@ -200,10 +202,10 @@ const FarmerDashboard = () => {
                   </div>
                   <div className="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
                     <div>
-                      <span className="font-medium">Harvest Date:</span> {product.harvestDate}
+                      <span className="font-medium">{t('dashboard.harvest_date')}:</span> {product.harvestDate}
                     </div>
                     <div>
-                      <span className="font-medium">Location:</span> {product.location}
+                      <span className="font-medium">{t('dashboard.location')}:</span> {product.location}
                     </div>
                     <div>
                       <span className="font-medium">QR Code:</span> {product.qrCode}

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
 import { useNotifications } from '../contexts/NotificationContext';
 import { Link, NavLink } from 'react-router-dom';
@@ -6,6 +7,7 @@ import { motion } from 'framer-motion';
 
 const Navigation = () => {
   const { user, role, logout } = useAuth();
+  const { t, currentLanguage, supportedLanguages, changeLanguage, isLoading } = useLanguage();
   const { notifications } = useNotifications();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -33,18 +35,17 @@ const Navigation = () => {
   };
 
   const navigationItems = [
-    { name: 'Dashboard', to: '/dashboard', icon: '📊' },
-    { name: 'QR Generator', to: '/qr-generator', icon: '📱' },
-    { name: 'QR Scanner', to: '/qr-scanner', icon: '📷' },
-    { name: 'Product Timeline', to: '/product-timeline', icon: '📈' },
-    // Removed Profile and Help from the main navbar buttons
+    { name: t('nav.dashboard'), to: '/dashboard', icon: '📊' },
+    { name: t('nav.qr_generator'), to: '/qr-generator', icon: '📱' },
+    { name: t('nav.qr_scanner'), to: '/qr-scanner', icon: '📷' },
+    { name: t('nav.product_timeline'), to: '/product-timeline', icon: '📈' },
   ];
 
   // Include a dedicated Farmer button in the navbar for farmer users
   const resolvedItems = (() => {
     const items = [...navigationItems];
     if (role === 'farmer') {
-      items.splice(1, 0, { name: 'Farmer', to: '/dashboard', icon: '🌾' });
+      items.splice(1, 0, { name: t('user.role_farmer'), to: '/dashboard', icon: '🌾' });
     }
     return items;
   })();
@@ -85,6 +86,19 @@ const Navigation = () => {
 
           {/* Right side */}
           <div className="flex items-center space-x-4 ml-auto">
+            {/* Language Switcher */}
+            <select
+              value={currentLanguage}
+              onChange={(e) => changeLanguage(e.target.value)}
+              disabled={isLoading}
+              className="border border-gray-200 rounded-lg px-2 py-1 text-sm disabled:opacity-50"
+            >
+              {supportedLanguages.map((lang) => (
+                <option key={lang.code} value={lang.code}>
+                  {lang.nativeName}
+                </option>
+              ))}
+            </select>
             {/* Notifications */}
             <div className="relative">
               <button
@@ -107,7 +121,7 @@ const Navigation = () => {
                   className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 z-50"
                 >
                   <div className="p-4 border-b border-gray-200">
-                    <h3 className="text-lg font-semibold text-gray-900">Notifications</h3>
+                    <h3 className="text-lg font-semibold text-gray-900">{t('nav.notifications')}</h3>
                   </div>
                   <div className="max-h-64 overflow-y-auto">
                     {notifications.length > 0 ? (
@@ -128,7 +142,7 @@ const Navigation = () => {
                     ) : (
                       <div className="p-8 text-center text-gray-500">
                         <span className="text-4xl">🔔</span>
-                        <p className="mt-2">No notifications</p>
+                        <p className="mt-2">{t('nav.no_notifications')}</p>
                       </div>
                     )}
                   </div>
@@ -149,7 +163,7 @@ const Navigation = () => {
                 </div>
                 <div className="hidden md:block text-left">
                   <p className={`text-sm ${getRoleColor(role)} leading-none whitespace-nowrap`}>
-                    {`User ${role ? role.charAt(0).toUpperCase() + role.slice(1) : ''}`.trim()}
+                    {`${t('user.label')} ${role ? role.charAt(0).toUpperCase() + role.slice(1) : ''}`.trim()}
                   </p>
                 </div>
                 <span className="text-gray-400">▼</span>
@@ -169,7 +183,7 @@ const Navigation = () => {
                       style={{ textDecoration: 'none' }}
                     >
                       <span>👤</span>
-                      <span>Profile Settings</span>
+                      <span>{t('nav.profile_settings')}</span>
                     </Link>
                     <Link
                       to="/help"
@@ -177,7 +191,7 @@ const Navigation = () => {
                       style={{ textDecoration: 'none' }}
                     >
                       <span>❓</span>
-                      <span>Help & Support</span>
+                      <span>{t('nav.help')}</span>
                     </Link>
                     <div className="border-t border-gray-100 pt-2 mt-1">
                       <button
@@ -185,7 +199,7 @@ const Navigation = () => {
                         className="inline-flex items-center gap-3 px-4 py-2 rounded-lg text-sm font-medium w-full text-left border border-transparent text-red-600 hover:bg-red-50"
                       >
                         <span>🚪</span>
-                        <span>Sign Out</span>
+                        <span>{t('nav.sign_out')}</span>
                       </button>
                     </div>
                   </div>
@@ -205,7 +219,7 @@ const Navigation = () => {
               style={{ textDecoration: 'none' }}
             >
               <span>ℹ️</span>
-              <span>About</span>
+              <span>{t('nav.about')}</span>
             </NavLink>
 
             {/* Mobile menu button */}
@@ -240,7 +254,7 @@ const Navigation = () => {
                 style={{ textDecoration: 'none' }}
               >
                 <span>ℹ️</span>
-                <span>About</span>
+                <span>{t('nav.about')}</span>
               </NavLink>
               {resolvedItems.map((item) => (
                 <NavLink

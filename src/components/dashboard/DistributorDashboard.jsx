@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const DistributorDashboard = () => {
+  const { t } = useLanguage();
   const [shipments, setShipments] = useState([
     {
       id: 1,
@@ -65,9 +67,9 @@ const DistributorDashboard = () => {
   };
 
   const stats = [
-    { label: 'Active Shipments', value: shipments.filter(s => s.status === 'In Transit').length, icon: '🚛', color: 'text-blue-600' },
-    { label: 'Delivered Today', value: shipments.filter(s => s.status === 'Delivered').length, icon: '✅', color: 'text-green-600' },
-    { label: 'Pending Approval', value: pendingProducts.length, icon: '⏳', color: 'text-orange-600' },
+    { label: 'Active ' + t('dashboard.shipments'), value: shipments.filter(s => s.status === 'In Transit').length, icon: '🚛', color: 'text-blue-600' },
+    { label: t('dashboard.delivered') + ' Today', value: shipments.filter(s => s.status === 'Delivered').length, icon: '✅', color: 'text-green-600' },
+    { label: t('dashboard.pending_approvals'), value: pendingProducts.length, icon: '⏳', color: 'text-orange-600' },
     { label: 'Total Handled', value: shipments.length, icon: '📦', color: 'text-purple-600' }
   ];
 
@@ -75,7 +77,7 @@ const DistributorDashboard = () => {
     <div className="p-6 space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Distributor Dashboard</h1>
+        <h1 className="text-3xl font-bold text-gray-900">{t('dashboard.distributor_dashboard')}</h1>
         <p className="text-gray-600">Manage product distribution and transportation logistics</p>
       </div>
 
@@ -104,7 +106,7 @@ const DistributorDashboard = () => {
       {pendingProducts.length > 0 && (
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-200 bg-orange-50">
-            <h2 className="text-xl font-semibold text-orange-800">Pending Product Approvals</h2>
+            <h2 className="text-xl font-semibold text-orange-800">{t('dashboard.pending_products')} {t('dashboard.pending_approvals')}</h2>
           </div>
           <div className="divide-y divide-gray-200">
             {pendingProducts.map((product, index) => (

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { QRCodeCanvas } from 'qrcode.react';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const RetailerDashboard = () => {
+  const { t } = useLanguage();
   const [products, setProducts] = useState([
     {
       id: 1,
@@ -49,17 +51,17 @@ const RetailerDashboard = () => {
   };
 
   const stats = [
-    { label: 'Total Products', value: products.length, icon: '📦', color: 'text-blue-600' },
-    { label: 'Available', value: products.filter(p => p.status === 'Available').length, icon: '✅', color: 'text-green-600' },
-    { label: 'Low Stock', value: products.filter(p => p.status === 'Low Stock').length, icon: '⚠️', color: 'text-orange-600' },
-    { label: 'Out of Stock', value: products.filter(p => p.status === 'Out of Stock').length, icon: '❌', color: 'text-red-600' }
+    { label: t('dashboard.total_products'), value: products.length, icon: '📦', color: 'text-blue-600' },
+    { label: t('dashboard.available'), value: products.filter(p => p.status === 'Available').length, icon: '✅', color: 'text-green-600' },
+    { label: t('dashboard.low_stock'), value: products.filter(p => p.status === 'Low Stock').length, icon: '⚠️', color: 'text-orange-600' },
+    { label: t('dashboard.out_of_stock'), value: products.filter(p => p.status === 'Out of Stock').length, icon: '❌', color: 'text-red-600' }
   ];
 
   return (
     <div className="p-6 space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Retailer Dashboard</h1>
+        <h1 className="text-3xl font-bold text-gray-900">{t('dashboard.retailer_dashboard')}</h1>
         <p className="text-gray-600">Manage store inventory and product availability</p>
       </div>
 
