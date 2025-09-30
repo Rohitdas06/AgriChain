@@ -11,7 +11,7 @@ const FarmerDashboard = () => {
       name: 'Organic Tomatoes',
       batchId: 'BATCH-001',
       harvestDate: '2024-01-15',
-      location: 'Farm A, California',
+      location: 'Farm A, Nashik, Maharashtra, India',
       status: 'Harvested',
       qrCode: 'QR-TOMATO-001'
     },
@@ -20,7 +20,7 @@ const FarmerDashboard = () => {
       name: 'Fresh Lettuce',
       batchId: 'BATCH-002',
       harvestDate: '2024-01-20',
-      location: 'Farm B, Texas',
+      location: 'Farm B, Ludhiana, Punjab, India',
       status: 'In Transit',
       qrCode: 'QR-LETTUCE-002'
     }
@@ -150,7 +150,7 @@ const FarmerDashboard = () => {
                   onChange={(e) => setNewProduct({...newProduct, location: e.target.value})}
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                  placeholder="e.g., Farm A, California"
+                  placeholder="e.g., Farm A, Nashik, Maharashtra, India"
                 />
               </div>
               <div className="flex space-x-4 pt-4">

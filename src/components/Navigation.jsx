@@ -41,14 +41,7 @@ const Navigation = () => {
     { name: t('nav.product_timeline'), to: '/product-timeline', icon: '📈' },
   ];
 
-  // Include a dedicated Farmer button in the navbar for farmer users
-  const resolvedItems = (() => {
-    const items = [...navigationItems];
-    if (role === 'farmer') {
-      items.splice(1, 0, { name: t('user.role_farmer'), to: '/dashboard', icon: '🌾' });
-    }
-    return items;
-  })();
+  const resolvedItems = navigationItems;
 
   return (
     <nav className="sticky top-0 z-40 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 shadow-sm border-b border-gray-200">
@@ -154,14 +147,14 @@ const Navigation = () => {
             <div className="relative">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="inline-flex items-center gap-3 h-10 px-4 rounded-full border border-gray-200 bg-white text-gray-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                className="inline-flex items-center justify-center gap-3 h-10 px-4 rounded-full border border-gray-200 bg-white text-gray-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
               >
                 <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-green-600 rounded-full flex items-center justify-center">
                   <span className="text-white text-sm font-bold">
                     {user?.name?.charAt(0) || 'U'}
                   </span>
                 </div>
-                <div className="hidden md:block text-left">
+                <div className="hidden md:block md:flex-1 text-center">
                   <p className={`text-sm ${getRoleColor(role)} leading-none whitespace-nowrap`}>
                     {`${t('user.label')} ${role ? role.charAt(0).toUpperCase() + role.slice(1) : ''}`.trim()}
                   </p>

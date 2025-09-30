@@ -51,12 +51,12 @@ export default function About() {
   };
 
   const team = [
-    { name: 'Surbhi Singh', role: 'Product Lead', bio: 'Builds human-centered products for emerging markets. Experienced in AgTech and fintech ecosystems.' },
-    { name: 'Annu Sinha', role: 'Blockchain Engineer', bio: 'Designs secure, scalable smart-contract systems. Passionate about leveraging decentralized tech for social impact.' },
-    { name: 'Devanshu Mahato', role: 'DevOps Engineer', bio: 'Automates CI/CD pipelines and optimizes cloud infrastructure for cost and reliability.' },
-    { name: 'Rohit Das', role: 'Full-Stack Developer', bio: 'Creates reliable web experiences with a focus on performance and accessibility.' },
-    { name: 'Dhruv Shekhar', role: 'Data Analyst', bio: 'Turns blockchain and supply-chain data into actionable insights for stakeholders.' },
-    { name: 'Amar Das', role: 'UX Designer', bio: 'Crafts simple, inclusive interfaces that tell transparent stories about data.' }
+    { name: 'Surbhi Singh', role: 'Product Lead', bio: 'Builds human-centered products for emerging markets. Experienced in AgTech and fintech ecosystems.', linkedin: 'https://www.linkedin.com/in/surbhi-singh-cn30ss/', github: '' },
+    { name: 'Annu Sinha', role: 'Blockchain Engineer', bio: 'Designs secure, scalable smart-contract systems. Passionate about leveraging decentralized tech for social impact.', linkedin: 'https://www.linkedin.com/in/annusinha/', github: '' },
+    { name: 'Devanshu Mahato', role: 'DevOps Engineer', bio: 'Automates CI/CD pipelines and optimizes cloud infrastructure for cost and reliability.', linkedin: 'https://www.linkedin.com/in/devanshu-mahato-67653b294/', github: '' },
+    { name: 'Rohit Das', role: 'Full-Stack Developer', bio: 'Creates reliable web experiences with a focus on performance and accessibility.', linkedin: 'https://www.linkedin.com/in/rohit-das-09a67728b/', github: '' },
+    { name: 'Dhruv Shekhar', role: 'Data Analyst', bio: 'Turns blockchain and supply-chain data into actionable insights for stakeholders.', linkedin: 'https://www.linkedin.com/in/dhruv-shekhar-0a4853265/', github: '' },
+    { name: 'Amar Das', role: 'UX Designer', bio: 'Crafts simple, inclusive interfaces that tell transparent stories about data.', linkedin: 'https://www.linkedin.com/in/amar-das-29a81726b/', github: '' }
   ];
 
   const impact = [
@@ -72,7 +72,7 @@ export default function About() {
         {/* Hero */}
         <section className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-4" style={{ color: primary }}>
-            About AgroChain
+            About AgriChain
           </h1>
           <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto">
             Revolutionizing agriculture through blockchain transparency - connecting farmers directly to consumers
@@ -156,33 +156,47 @@ export default function About() {
         {/* Meet Our Team */}
         <section className="mb-12">
           <h2 className="text-2xl font-bold mb-4" style={{ color: primaryDark }}>Meet Our Team</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {team.map((m) => (
-              <div key={m.name} className="rounded-2xl p-5 border bg-white/60 backdrop-blur-md shadow-sm text-center" style={{ borderColor: '#e5e7eb' }}>
-                <div className="mx-auto h-20 w-20 rounded-full bg-gradient-to-tr from-white to-gray-100 border flex items-center justify-center mb-4" style={{ borderColor: '#e5e7eb' }}>
-                  <span className="text-xl font-bold" style={{ color: primary }}>{m.name.charAt(0)}</span>
+              <div
+                key={m.name}
+                className="relative overflow-hidden rounded-2xl p-6 bg-white/80 backdrop-blur border border-gray-200 text-center shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 aspect-square flex flex-col"
+              >
+                <div className="absolute -top-10 -right-10 h-28 w-28 bg-gradient-to-br from-green-200 to-blue-200 rounded-full blur-2xl opacity-60" />
+                <div className="absolute -bottom-10 -left-10 h-24 w-24 bg-gradient-to-tr from-blue-100 to-green-100 rounded-full blur-2xl opacity-60" />
+
+                <div className="relative mx-auto mb-4 h-20 w-20 rounded-full bg-gradient-to-r from-green-600 to-blue-600 flex items-center justify-center shadow-lg ring-4 ring-white">
+                  <span className="text-2xl font-extrabold text-white">{m.name.charAt(0)}</span>
                 </div>
-                <div className="font-bold" style={{ color: primary }}>{m.name}</div>
-                <div className="italic text-gray-600 text-sm mb-2">{m.role}</div>
-                <p className="text-sm text-gray-700">{m.bio}</p>
-                <div className="mt-3 flex justify-center gap-3 text-sm">
+
+                <div className="font-bold text-lg bg-clip-text text-transparent bg-gradient-to-r from-green-700 to-blue-700">{m.name}</div>
+                <div className="mt-1 mb-3 inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-700 border border-green-100 mx-auto">
+                  <span>🎖️</span>
+                  <span>{m.role}</span>
+                </div>
+
+                <p className="text-sm text-gray-700 leading-relaxed flex-1">{m.bio}</p>
+
+                <div className="mt-4 flex justify-center gap-3 text-sm">
                   <a
-                    href={`https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(m.name)}`}
+                    href={m.linkedin || `https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(m.name)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-500 hover:text-gray-700"
-                    style={{ color: primary }}
+                    className="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-gray-200 bg-white text-gray-700 hover:border-green-300 hover:bg-green-50 transition-colors"
+                    style={{ textDecoration: 'none' }}
                   >
-                    LinkedIn
+                    <span>🔗</span>
+                    <span>LinkedIn</span>
                   </a>
                   <a
-                    href={`https://github.com/search?q=${encodeURIComponent(m.name)}&type=users`}
+                    href={m.github || `https://github.com/search?q=${encodeURIComponent(m.name)}&type=users`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-500 hover:text-gray-700"
-                    style={{ color: primary }}
+                    className="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-gray-200 bg-white text-gray-700 hover:border-blue-300 hover:bg-blue-50 transition-colors"
+                    style={{ textDecoration: 'none' }}
                   >
-                    GitHub
+                    <span>💻</span>
+                    <span>GitHub</span>
                   </a>
                 </div>
               </div>

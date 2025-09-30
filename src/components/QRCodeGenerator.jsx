@@ -113,7 +113,7 @@ const QRCodeGenerator = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
                 { label: 'Product Batch', data: 'BATCH-TOMATO-001' },
-                { label: 'Farm Location', data: 'Farm A, California, USA' },
+                { label: 'Farm Location', data: 'Farm A, Nashik, Maharashtra, India' },
                 { label: 'Harvest Date', data: '2024-01-15' },
                 { label: 'Blockchain Hash', data: '0x1234567890abcdef...' }
               ].map((example, index) => (

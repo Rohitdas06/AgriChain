@@ -9,8 +9,8 @@ const DistributorDashboard = () => {
       id: 1,
       productName: 'Organic Tomatoes',
       batchId: 'BATCH-001',
-      from: 'Farm A, California',
-      to: 'Distribution Center B',
+      from: 'Farm A, Nashik, Maharashtra',
+      to: 'Distribution Center, Pune',
       status: 'In Transit',
       estimatedArrival: '2024-01-25',
       temperature: '4°C',
@@ -20,8 +20,8 @@ const DistributorDashboard = () => {
       id: 2,
       productName: 'Fresh Lettuce',
       batchId: 'BATCH-002',
-      from: 'Farm B, Texas',
-      to: 'Distribution Center A',
+      from: 'Farm B, Ludhiana, Punjab',
+      to: 'Distribution Center, Delhi',
       status: 'Delivered',
       estimatedArrival: '2024-01-22',
       temperature: '2°C',
@@ -34,9 +34,9 @@ const DistributorDashboard = () => {
       id: 1,
       productName: 'Organic Carrots',
       batchId: 'BATCH-003',
-      farmer: 'John Smith',
+      farmer: 'Ravi Kumar',
       harvestDate: '2024-01-20',
-      location: 'Farm C, Oregon',
+      location: 'Farm C, Coimbatore, Tamil Nadu',
       requestDate: '2024-01-21'
     }
   ]);

@@ -67,7 +67,7 @@ const QRCodeScanner = () => {
   const simulateScan = () => {
     const mockData = [
       'BATCH-TOMATO-001',
-      'Farm A, California',
+      'Farm A, Nashik, Maharashtra, India',
       '2024-01-15',
       '0x1234567890abcdef1234567890abcdef12345678'
     ];

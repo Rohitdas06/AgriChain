@@ -13,7 +13,7 @@ const ConsumerDashboard = () => {
       scanDate: '2024-01-25',
       authenticity: 'Verified',
       timeline: [
-        { step: 'Harvested', date: '2024-01-15', location: 'Farm A, California', status: 'completed' },
+        { step: 'Harvested', date: '2024-01-15', location: 'Farm A, Nashik, Maharashtra', status: 'completed' },
         { step: 'Processed', date: '2024-01-16', location: 'Processing Plant A', status: 'completed' },
         { step: 'Distributed', date: '2024-01-20', location: 'Distribution Center B', status: 'completed' },
         { step: 'Retailed', date: '2024-01-22', location: 'Fresh Market Store', status: 'completed' }
@@ -44,7 +44,7 @@ const ConsumerDashboard = () => {
             scanDate: new Date().toISOString().split('T')[0],
             authenticity: 'Verified',
             timeline: [
-              { step: 'Harvested', date: '2024-01-15', location: 'Farm A, California', status: 'completed' },
+              { step: 'Harvested', date: '2024-01-15', location: 'Farm A, Nashik, Maharashtra', status: 'completed' },
               { step: 'Processed', date: '2024-01-16', location: 'Processing Plant A', status: 'completed' },
               { step: 'Distributed', date: '2024-01-20', location: 'Distribution Center B', status: 'completed' },
               { step: 'Retailed', date: '2024-01-22', location: 'Fresh Market Store', status: 'completed' }
